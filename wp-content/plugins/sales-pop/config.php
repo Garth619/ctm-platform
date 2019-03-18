@@ -5,7 +5,7 @@ define('BEEKETINGWOOCOMMERCE_API', 'https://api.beeketing.com');
 define('BEEKETINGWOOCOMMERCE_GO_API', 'https://gapi.beeketing.com');
 define('BEEKETINGWOOCOMMERCE_ENVIRONMENT', 'prod');
 define('BEEKETINGWOOCOMMERCE_CONNECT_DASHBOARD', 'https://connect-dashboard.beeketing.com');
-define('BEEKETINGWOOCOMMERCE_VERSION', '1.4.6');
+define('BEEKETINGWOOCOMMERCE_VERSION', '1.4.9');
 define('BEEKETINGWOOCOMMERCE_SDK_PATH', 'https://sdk.beeketing.com/js/beeketing.js');
 
 # Enable sentry

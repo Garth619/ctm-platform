@@ -78,7 +78,7 @@ class Helper
      */
     public static function getShopDomain()
     {
-        $site_url = get_site_url();
+        $site_url = get_home_url();
         $url_parsed = parse_url($site_url);
         $host = isset($url_parsed['host']) ? $url_parsed['host'] : '';
 

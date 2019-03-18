@@ -179,21 +179,14 @@ class Loader
     {
         static::instance()
             ->handler
-            ->activatePluginHook('Connect - Activate plugin', 'beeketing-woocommerce');
+            ->activatePluginHook('Connect - Activate plugin', 'wordpress');
     }
 
     public static function deactivateHook()
     {
         static::instance()
             ->handler
-            ->deactivatePluginHook('Connect - Inactivate plugin', 'beeketing-woocommerce');
-    }
-
-    public static function uninstallHook()
-    {
-        static::instance()
-            ->handler
-            ->uninstallHook('Connect - Delete plugin', 'beeketing-woocommerce');
+            ->deactivatePluginHook('Connect - Deactivate plugin', 'wordpress');
     }
 
     /**

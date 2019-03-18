@@ -1,0 +1,55 @@
+.label{
+  font-weight: 400;
+  margin-bottom: 5px;
+  color: #79909B;
+}
+
+#failure_msg{
+  padding:20px;
+  background-color:#FFF1EC;
+  color:#E65453;
+  padding:20px;
+  text-align:center;
+  margin-top:40px;
+}
+
+#status_msg{
+    position: fixed;
+ 	top: 0;
+ 	left: 0;
+ 	right: 0;
+ 	z-index: 100000;
+ 	margin: 0 auto;
+ 	color: #fff;
+ 	max-width: 400px;
+    width: 80%;
+    background-color: #53B05A;
+    padding:10px;
+    font-size:14px;
+}
+
+.zswelcomepanouter {
+    width: 50%;
+    box-shadow: 0px 2px 2px #ccc;
+}
+
+.zswelcomepan {
+    padding: 40px 0;
+    background-color: #fff;
+    margin-top: 60px;
+}
+
+.zswelcomepan h1 {
+    font-size: 30px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.zswelheading {
+    font-size: 30px;
+    color: #555;
+    font-weight: normal;
+    margin: 0px;
+}

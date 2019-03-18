@@ -3,7 +3,7 @@
  * Plugin Name: Sales Pop
  * Plugin URI: https://beeketing.com/sales-pop?utm_channel=appstore&utm_medium=woolisting&utm_term=shortdesc&utm_fromapp=spop
  * Description: Show recent sales notification popups to create the sense of a busy store and motivate customers to start buying. 1 in 10+ built-in features in Beeketing - <strong>#1 Marketing Automation</strong> platform for WooCommerce.
- * Version: 1.4.6
+ * Version: 1.4.9
  * Author: Beeketing
  * Author URI: https://beeketing.com
  * WC tested up to: 3.5.0
@@ -33,7 +33,6 @@ require_once __DIR__ . '/sentry.php';
 
 register_activation_hook(__FILE__, array(SalesPopLoader::class, 'activateHook'));
 register_deactivation_hook(__FILE__, array(SalesPopLoader::class, 'deactivateHook'));
-register_uninstall_hook(__FILE__, array(SalesPopLoader::class, 'uninstallHook'));
 
 $pluginLoader = SalesPopLoader::instance();
 $pluginLoader->init();

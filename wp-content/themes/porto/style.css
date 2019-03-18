@@ -14,3 +14,42 @@ Text Domain: porto
 /*************** ADD YOUR CUSTOM CSS HERE  ***************/
 
 .bypostauthor {}
+
+
+#header.sticky-header .main-menu-wrap, .fixed-header #header.sticky-header .main-menu-wrap {
+	background:#8e1e1e;
+}
+
+#header.sticky-header .main-menu > li.menu-item > a:hover {
+	color:#fff !important;
+}
+
+
+
+.gform_wrapper {
+	-webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.33);
+	-moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.33);
+	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.33);
+	padding:10px 25px 15px 25px;
+}
+
+
+.gform_wrapper ul.gform_fields li.gfield {
+	padding-right:0 !important;
+}
+
+
+.gform_wrapper .gform_footer input.button, .gform_wrapper .gform_footer input[type=submit], .gform_wrapper .gform_page_footer input.button, .gform_wrapper .gform_page_footer input[type=submit] {
+	width:100% !important;
+}
+
+
+.gform_wrapper .field_sublabel_below .ginput_complex.ginput_container label, .gform_wrapper .field_sublabel_below div[class*=gfield_time_].ginput_container label {
+	display: none !important;
+}
+
+
+
+.gform_wrapper .top_label .gfield_label, .gform_wrapper legend.gfield_label {
+	margin-bottom: 0 !important;
+}

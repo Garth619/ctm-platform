@@ -118,7 +118,7 @@ class Handler
 
         // Update shop info
         $params = array(
-            'absolute_path' => CommonHelper::parseAbsolutePath(get_site_url()),
+            'absolute_path' => CommonHelper::parseAbsolutePath(get_home_url()),
             'currency' => Helper::getCurrency(),
             'currency_format' => Helper::getCurrencyFormat(),
         );
@@ -430,13 +430,18 @@ class Handler
 
     /**
      * Handle uninstall plugin
+     * @param string
      */
-    public function uninstallPlugin()
+    public function uninstallPlugin($platform)
     {
         // Delete all settings only, don't cancel any apps, user need to cancel them manually
         if($this->loader->getAppsInstalledCount() == 1) {
             $this->loader->dataManager->settingManager->deleteAll();
         }
+
+        $this->loader->beeketingAPI->trackEvent('Connect - Delete plugin', [
+            'platform' => $platform
+        ]);
     }
 
     /**
@@ -464,17 +469,17 @@ class Handler
         exit();
     }
 
-    public function deactivatePluginHook($event, $pluginName)
+    public function deactivatePluginHook($event, $platform)
     {
         $this->loader->beeketingAPI->trackEvent($event, [
-            'plugin' => $pluginName
+            'platform' => $platform
         ]);
     }
 
-    public function activatePluginHook($event, $pluginName)
+    public function activatePluginHook($event, $platform)
     {
         $this->loader->beeketingAPI->trackEvent($event, [
-            'plugin' => $pluginName
+            'platform' => $platform
         ]);
     }
 

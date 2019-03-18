@@ -50,6 +50,7 @@ return array(
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Data\\ShopManager' => $baseDir . '/src/Platforms/Magento/Data/ShopManager.php',
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Data\\VariantManager' => $baseDir . '/src/Platforms/Magento/Data/VariantManager.php',
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Common' => $baseDir . '/src/Platforms/Magento/Helper/Common.php',
+    'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Response' => $baseDir . '/src/Platforms/Magento/Helper/Response.php',
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Setting' => $baseDir . '/src/Platforms/Magento/Helper/Setting.php',
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Snippet' => $baseDir . '/src/Platforms/Magento/Helper/Snippet.php',
     'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Observer\\Catalog\\CategoryChangeProducts' => $baseDir . '/src/Platforms/Magento/Observer/Catalog/CategoryChangeProducts.php',

@@ -100,44 +100,7 @@ class BeeketingAPI
         $headers = $this->getRequestHeaders($headers);
         $url = $this->getApiUrl($url, $useGoApi);
 
-        // Json encode array content
-        if ($content) {
-            if ($method == self::METHOD_GET) {
-                $url = CommonHelper::addQueryArg($content, $url);
-            } else {
-                $content = json_encode($content);
-            }
-        }
-        try {
-            // Create browser to send request
-            $browser = CommonHelper::createBrowser();
-
-            /** @var Response|boolean $response */
-            $response = false;
-            switch ($method) {
-                case self::METHOD_GET:
-                    $response = $browser->get($url, $headers);
-                    break;
-                case self::METHOD_POST:
-                    $response = $browser->post($url, $headers, $content);
-                    break;
-                case self::METHOD_PUT:
-                    $response = $browser->put($url, $headers, $content);
-                    break;
-                case self::METHOD_DELETE:
-                    $response = $browser->delete($url, $headers, $content);
-                    break;
-            }
-
-            if ($response && in_array($response->getStatusCode(), [200, 201])) {
-                return json_decode($response->getContent(), true);
-            }
-
-        } catch (\Exception $e) {
-            return $this->responseError($e->getMessage());
-        }
-
-        return $this->responseError('Oops, Something went wrong!, Invalid response.');
+        return $this->doRequest($method, $url, $headers, $content);
     }
 
     /**
@@ -226,17 +189,95 @@ class BeeketingAPI
         return false;
     }
 
+    /**
+     * @param $method
+     * @param $url
+     * @param $content
+     * @return array|mixed|object
+     */
+    protected function sendNormalRequest($method, $url, $content)
+    {
+        $headers = $this->getRequestHeaders([]);
+        if (!$this->apiKey) {
+            unset($headers['X-Beeketing-Key']);
+            unset($headers['X-Beeketing-Access-Token-By-Shop-API-Key']);
+        }
+
+        $url = $this->getApiUrl($url, true);
+        return $this->doRequest($method, $url, $headers, $content);
+    }
+
+    /**
+     * @param $method
+     * @param $url
+     * @param $headers
+     * @param $content
+     * @return array|mixed|object
+     */
+    protected function doRequest($method, $url, $headers, $content)
+    {
+        // Json encode array content
+        if ($content) {
+            if ($method == self::METHOD_GET) {
+                $url = CommonHelper::addQueryArg($content, $url);
+            } else {
+                $content = json_encode($content);
+            }
+        }
+
+        try {
+            // Create browser to send request
+            $browser = CommonHelper::createBrowser();
+
+            /** @var Response|boolean $response */
+            $response = false;
+            switch ($method) {
+                case self::METHOD_GET:
+                    $response = $browser->get($url, $headers);
+                    break;
+                case self::METHOD_POST:
+                    $response = $browser->post($url, $headers, $content);
+                    break;
+                case self::METHOD_PUT:
+                    $response = $browser->put($url, $headers, $content);
+                    break;
+                case self::METHOD_DELETE:
+                    $response = $browser->delete($url, $headers, $content);
+                    break;
+            }
+
+            if ($response && in_array($response->getStatusCode(), [200, 201])) {
+                return json_decode($response->getContent(), true);
+            }
+
+        } catch (\Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+
+        return $this->responseError('Oops, Something went wrong!, Invalid response.');
+    }
+
+    /**
+     * @param $event
+     * @param $params
+     * @return bool
+     */
     public function trackEvent($event, $params)
     {
-        $response = $this->sendRequest(
+        $currentUser = wp_get_current_user();
+        $email = $currentUser->user_email;
+
+        $response = $this->sendNormalRequest(
             self::METHOD_POST,
             'woocommerce/track',
             [
                 'event' => $event,
-                'params' => $params
-            ],
-            [],
-            true
+                'email' => $email,
+                'params' => array_merge([
+                    'email' => $email,
+                    'shop_domain' => CommonHelper::getShopURL()
+                ], $params),
+            ]
         );
 
         if ($response === false) {

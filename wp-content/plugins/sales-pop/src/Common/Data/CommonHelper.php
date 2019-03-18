@@ -157,7 +157,7 @@ class CommonHelper
      * Common func return timestamp with timezone UTC
      * @param $datetime
      * @param \DateTimeZone $inputTimeZone
-     * @return stringti
+     * @return string
      * @throws \Exception
      */
     public static function formatDate($datetime, $inputTimeZone = null)
@@ -187,6 +187,31 @@ class CommonHelper
 
         // Make sure output always UTC timezone
         $date->setTimezone($outputTimeZone);
+
         return $date->format(DATE_RFC2822);
+    }
+
+    /**
+     * [IMPORTANT] Just works on Wordpress
+     * Get shop URL
+     * It just works. I don't know why. I copy this function from old plugin
+     * @return string
+     */
+    public static function getShopURL()
+    {
+        $site_url = get_home_url();
+        $url_parsed = parse_url($site_url);
+        $host = isset($url_parsed['host']) ? $url_parsed['host'] : '';
+        $www = get_query_var('www', null);
+
+        if ($www !== null) {
+            if (in_array($www, array(0, false))) {
+                $host = preg_replace('/^www\./', '', $host);
+            } elseif (!preg_match('/^www\./', $host) && in_array($www, array(1, true))) {
+                $host = 'www.' . $host;
+            }
+        }
+
+        return $host;
     }
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668
+class ComposerStaticInit43e2afe8cc8e8151de59091e1b2ded6e
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -98,6 +98,7 @@ class ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Data\\ShopManager' => __DIR__ . '/../..' . '/src/Platforms/Magento/Data/ShopManager.php',
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Data\\VariantManager' => __DIR__ . '/../..' . '/src/Platforms/Magento/Data/VariantManager.php',
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Common' => __DIR__ . '/../..' . '/src/Platforms/Magento/Helper/Common.php',
+        'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Response' => __DIR__ . '/../..' . '/src/Platforms/Magento/Helper/Response.php',
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Setting' => __DIR__ . '/../..' . '/src/Platforms/Magento/Helper/Setting.php',
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Helper\\Snippet' => __DIR__ . '/../..' . '/src/Platforms/Magento/Helper/Snippet.php',
         'BeeketingConnect_beeketing_woocommerce_salespop\\Platforms\\Magento\\Observer\\Catalog\\CategoryChangeProducts' => __DIR__ . '/../..' . '/src/Platforms/Magento/Observer/Catalog/CategoryChangeProducts.php',
@@ -284,10 +285,10 @@ class ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd45d060e447a6ea4f41918c0fd43c668::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit43e2afe8cc8e8151de59091e1b2ded6e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit43e2afe8cc8e8151de59091e1b2ded6e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit43e2afe8cc8e8151de59091e1b2ded6e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit43e2afe8cc8e8151de59091e1b2ded6e::$classMap;
 
         }, null, ClassLoader::class);
     }

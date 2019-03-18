@@ -27,7 +27,7 @@ class ShopManager extends ShopManagerAbstract
 
         // Set shop domain from response data
         $shop->domain = Helper::getShopDomain();
-        $shop->absolute_path = CommonHelper::parseAbsolutePath(get_site_url());
+        $shop->absolute_path = CommonHelper::parseAbsolutePath(get_home_url());
         $shop->currency = Helper::getCurrency();
         $shop->currency_format = Helper::getCurrencyFormat();
         $shop->name = get_bloginfo('name');

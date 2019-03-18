@@ -8,7 +8,6 @@
 
 namespace BeeketingConnect_beeketing_woocommerce_salespop\Platforms\WooCommerce;
 
-
 class Constants
 {
     // Route for beeketing admin page

@@ -70,7 +70,7 @@ class CollectionManager extends CollectionManagerAbstract
 
         // Get collection url
         if (!$categoryBase) {
-            $collectionUrl = ltrim(str_replace(get_site_url(), '', get_term_link($collectionArray)), '/');
+            $collectionUrl = ltrim(str_replace(get_home_url(), '', get_term_link($collectionArray)), '/');
         } else {
             $collectionUrl = $categoryBase . '/' . $collectionArray->slug;
         }

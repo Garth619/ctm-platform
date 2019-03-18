@@ -1,0 +1,31 @@
+.legendCont{ border-top:none; letter-spacing:0.5px;}
+.legandTabCont{ border-bottom:1px solid #DFDFDF; }
+.legandTabCont a{ padding:0 4px; width:48%;  display:inline-block; border-right:1px solid #DFDFDF; font-weight:600; font-size:15px; color:#948e8e; text-decoration:none;text-align:center;background:#F3F3F3; float:left;letter-spacing:0.5px;}
+.legandTabCont .lastTab{ border-right:none;}
+.legandTabCont a.selected{ color:#0368b0;background:#fff;}  
+.legandTabCont a em{border-bottom:2px solid #F3F3F3; display:inline-block; padding:15px 0;font-style:normal;}
+.legandTabCont a.selected em{border-bottom:2px solid #0368b0;}
+.popupOuterWrapper{ font-size: 13px;padding: 25px;padding-top:25px;padding-bottom: 15px;}
+.popupOuterWrapper .popupInnerWrapper{ padding-bottom:10px;}
+.popupOuterWrapper .popupInnerWrapper label{ display: block;margin-bottom: 5px;}
+.popupOuterWrapper .popupInnerWrapper label em{ color:#ff0000;font-weight:600;}
+.popupOuterWrapper .popupContainer input{ padding:5px 10px;}
+.popupContainer{}
+.clearBoth{clear:both;}
+.popupOuterWrapper .popupInnerWrapper label, .popupOuterWrapper .popupContainer input, .popupOuterWrapper .popupContainer textarea{font-size:14px; letter-spacing:0.5px; color:#000;}
+.blue{background:#2596E6; color:#fff !important; border:1px solid #2596e6;}
+.popupFotter input{ margin-right:5px;}
+.twoColumns .popupInnerWrapper input{ width:175px; font-size:13px;}
+.flLeft{float:left;}
+.flRight{float:right;}
+.popupFotter{ text-align:center; margin-top:28px;}
+.signWrapper{ text-align:center; font-size:13px; margin:18% 13%;}
+.signWrapper input{    padding: 4px 8px; font-size: 13px;cursor: pointer;}
+.popupContainer select{padding: 5px;font-size: 12px;background: #fff;width: 100%;}
+.errorCont textarea, .errorCont select{ border:1px solid #ff0000;}	
+.errorCont p{font-size:12px; color:#ff0000; margin:0; padding-top:3px;}
+.brandingFotterWrapper{ position:fixed; bottom:0; width:100%;}
+.brandingFotterWrapper .brandingFotterCont{ margin:10px; }
+.brandingFotterWrapper .brandingFotterCont span{ margin-right:5px; color:#666;}
+.forceColors{ background:#fff !important;}
+.popupOuterWrapper .popupContainer textarea:focus, .popupOuterWrapper .popupContainer input:focus, .popupOuterWrapper .popupContainer select:focus{ border:1px solid #000;}

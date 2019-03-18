@@ -665,3 +665,5 @@ if( is_plugin_active('yith-woocommerce-wishlist/init.php') ){
         require_once( get_template_directory() . '/woocommerce/yit-pointers.php' );
     }
 }
+
+

@@ -219,8 +219,24 @@ class Hooks
             'woocommerce_plugin_url' => Helper::getWooCommercePluginUrl(),
             'connect_admin_url' => admin_url('admin.php?page=' . $config->getPluginAdminUrl()),
             'platform' => Constants::PLATFORM_CODE,
-            'admin_url' => admin_url()
+            'admin_url' => admin_url(),
+            'plugin' => $this->getPlugin(),
+            'plugin_name' => $config->getPluginName()
         ));
+    }
+
+    /**
+     * @return string
+     */
+    private function getPlugin()
+    {
+        $path = plugin_basename(__FILE__);
+
+        if (strpos($path, "salespop") !== false || strpos($path, "sales_pop") !== false) {
+            return "sale_notification";
+        }
+
+        return Constants::PLATFORM_CODE;
     }
 
     /**

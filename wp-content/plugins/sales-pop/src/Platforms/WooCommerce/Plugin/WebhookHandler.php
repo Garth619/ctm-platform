@@ -249,7 +249,7 @@ class WebhookHandler
     public function updateGeneralSettingsWC()
     {
         $shopManager = new ShopManager();
-        $this->webhook->sendToGoServer(
+        $this->webhook->send(
             Webhook::UPDATE_SETTING_GENERAL,
             $this->shopId,
             Constants::PLATFORM_CODE,
@@ -265,7 +265,7 @@ class WebhookHandler
     {
         if ('blogname' == $option && $oldValue != $value) {
             $shopManager = new ShopManager();
-            $this->webhook->sendToGoServer(
+            $this->webhook->send(
                 Webhook::UPDATE_SETTING_GENERAL,
                 $this->shopId,
                 Constants::PLATFORM_CODE,

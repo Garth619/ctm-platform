@@ -290,9 +290,9 @@ class ProductManager extends ProductManagerAbstract
         } else {
             $images = $this->resourceManager->imageManager->getProductImagesByWCProduct($wcProduct);
         }
-
-        if (!$productBase || preg_match('/%.*%/', $productBase)) {
-            $productHandle = ltrim(str_replace(get_site_url(), '', $wcProduct->get_permalink()), '/');
+        $permalinkStructure = get_option('permalink_structure');
+        if (!$productBase || empty($permalinkStructure) || preg_match('/%.*%/', $permalinkStructure) || preg_match('/%.*%/', $productBase)) {
+            $productHandle = ltrim(str_replace(get_home_url(), '', $wcProduct->get_permalink()), '/');
         } else {
             $productBase = preg_replace('/%.*%/', '', $productBase);
             $productBase = rtrim($productBase, '/');

@@ -61,4 +61,9 @@ class Shop
      * @var string
      */
     public $zip;
+
+    /**
+     * @var string
+     */
+    public $country;
 }

@@ -54,3 +54,16 @@ Tags: woocommerce, corporate, ecommerce, responsive, blue, black, green, white, 
 .gform_wrapper .top_label .gfield_label, .gform_wrapper legend.gfield_label {
 	margin-bottom: 0 !important;
 }
+
+
+/* greyline in sidebar for PT Shops */
+
+
+
+
+.widget_product_categories {
+	padding-bottom:17px;
+	border-bottom:1px solid #ddd;
+}
+
+

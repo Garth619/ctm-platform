@@ -97,4 +97,9 @@ class Product
      * @var bool
      */
     public $is_virtual = false;
+
+    /**
+     * @var int
+     */
+    public $inventory_management = 0;
 }

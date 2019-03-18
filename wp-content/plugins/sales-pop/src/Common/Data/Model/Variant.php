@@ -118,7 +118,7 @@ class Variant
     public $requires_shipping;
 
     /**
-     * @var string
+     * @var bool
      */
     public $taxable;
 

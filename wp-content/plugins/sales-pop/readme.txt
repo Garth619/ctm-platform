@@ -4,6 +4,7 @@ Tags: ecommerce, woocommerce, recent sales notification, popup, live sales feed
 Requires at least: 4.4
 Tested up to: 5.0
 WC tested up to: 3.5.0
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -133,6 +134,12 @@ For more information about our Term of Service and Privacy Policy, please go to 
 7. Holiday themes collection to decorate your store on Halloween, Thanksgiving, Black Friday, Cyber Monday, Christmas, New Year, Valentines,...
 
 == Changelog ==
+= 1.4.8,1.4.9 - 14/02/2019 =
+* Fix - Fix some small bugs
+
+= 1.4.7 - 29/01/2019 =
+* Fix - Conflict with Query Monitor plugin
+
 = 1.4.6 - 09/01/2019 =
 * Add - Add billing address to Order API
 * Add - Add webhook for sync shop info
@@ -155,7 +162,7 @@ For more information about our Term of Service and Privacy Policy, please go to 
 
 = 1.4.1 - 15/11/2018 =
 * Add - Add "Migrate To Beeketing" option
-* Fix - small bugs
+* Fix - Fix some small bugs
 
 = 1.4.0 - 14/11/2018 =
 * Fix - App works inside admin

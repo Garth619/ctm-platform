@@ -52,8 +52,6 @@ class SalesPopLoader extends Loader
 
     public static function activateHook()
     {
-        //  Set cookie for tracking in Connect Dashboard. This is quite hacky
-        setcookie('activate_sale_pop', 1, time() + 60 * 60 *24);
         static::instance()
             ->handler
             ->activatePluginHook('Connect - Activate plugin', 'sale_notification');
@@ -63,13 +61,6 @@ class SalesPopLoader extends Loader
     {
         static::instance()
             ->handler
-            ->deactivatePluginHook('Connect - Inactivate plugin', 'sale_notification');
-    }
-
-    public static function uninstallHook()
-    {
-        static::instance()
-            ->handler
-            ->uninstallHook('Connect - Delete plugin', 'sale_notification');
+            ->deactivatePluginHook('Connect - Deactivate plugin', 'sale_notification');
     }
 }

@@ -14,4 +14,4 @@ if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 require_once('sales-pop-woocommerce.php');
 
 // Call uninstall plugin
-$pluginLoader->handler->uninstallPlugin();
+$pluginLoader->handler->uninstallPlugin('sale_notification');
