@@ -28,7 +28,7 @@ define( 'DISALLOW_FILE_EDIT', true ); // Disable File Editor - Security > Settin
 /** The name of the database for WordPress */
 define( 'WPCACHEHOME', '/Applications/MAMP/htdocs/ctm-platform/wp-content/plugins/wp-super-cache/' );
 define('WP_CACHE', true);
-define('DB_NAME', 'ctmplatformtest');
+define('DB_NAME', 'ctmplatformtwo');
 
 /** MySQL database username */
 define('DB_USER', 'root');
