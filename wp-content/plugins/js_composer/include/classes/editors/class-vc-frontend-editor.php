@@ -728,7 +728,10 @@ class Vc_Frontend_Editor implements Vc_Editor_Interface {
 		wp_register_script( 'webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js' ); // Google Web Font CDN
 		wp_register_script( 'wpb_scrollTo_js', vc_asset_url( 'lib/bower/scrollTo/jquery.scrollTo.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
 		wp_register_script( 'vc_accordion_script', vc_asset_url( 'lib/vc_accordion/vc-accordion.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
-		wp_register_script( 'vc-frontend-editor-min-js', vc_asset_url( 'js/dist/frontend-editor.min.js' ), array(), WPB_VC_VERSION, true );
+		if (defined('JS_COMPOSER_THEME_ACTIVATED_URL'))
+			wp_register_script( 'vc-frontend-editor-min-js', vc_asset_url( 'js/dist/compat/frontend-editor.min.js' ), array(), WPB_VC_VERSION, true );
+		else
+			wp_register_script( 'vc-frontend-editor-min-js', vc_asset_url( 'js/dist/frontend-editor.min.js' ), array(), WPB_VC_VERSION, true );
 		wp_localize_script( 'vc-frontend-editor-min-js', 'i18nLocale', visual_composer()->getEditorsLocale() );
 	}
 

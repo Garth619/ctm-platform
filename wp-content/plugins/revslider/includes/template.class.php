@@ -8,7 +8,7 @@
 if( !defined( 'ABSPATH' ) ) exit();
 
 class RevSliderTemplate {
-	
+
 	private $templates_list		= 'revslider/get-list.php';
 	private $templates_download	= 'revslider/download.php';
 	
@@ -20,6 +20,13 @@ class RevSliderTemplate {
 	
 	const SHOP_VERSION				= '1.2.2';
 	
+    public function __construct() {
+        if (defined('REVSLIDER_THEME_ACTIVATED_URL')){
+            $this->templates_list = 'get-list.php';
+            $this->templates_download = 'download.php';
+            $this->templates_server_path = 'images/';
+        }
+    }
 	
 	/**
 	 * Download template by UID (also validates if download is legal)
@@ -31,13 +38,14 @@ class RevSliderTemplate {
 		$return	= false;
 		$uid	= esc_attr($uid);
 		$code	= (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
-		
+		 if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
+
 		$upload_dir = wp_upload_dir(); // Set upload folder
 		// Check folder permission and define file location
 		if(wp_mkdir_p( $upload_dir['basedir'].$this->templates_path ) ) { //check here to not flood the server
 			$done	= false;
 			$count	= 0;
-			do{	
+			do{
 				$url		= $rslb->get_url('templates');
 				$request	= wp_remote_post($url.'/'.$this->templates_download, array(
 					'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
@@ -48,16 +56,16 @@ class RevSliderTemplate {
 						'uid' => urlencode($uid),
 						'product' => urlencode(RS_PLUGIN_SLUG)
 					),
-					'timeout' => 45 //DIRK 
+					'timeout' => 45 //DIRK
 				));
-				
+
 				$response_code = wp_remote_retrieve_response_code( $request );
 				if($response_code == 200){
 					$done = true;
 				}else{
 					$rslb->move_server_list();
 				}
-				
+
 				$count++;
 			}while($done == false && $count < 5);
 			
@@ -130,9 +138,10 @@ class RevSliderTemplate {
 			update_option('revslider-templates-check',  time());
 			
 			$code	= (get_option('revslider-valid', 'false') == 'false') ? '' : get_option('revslider-code', '');
+			if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
 			$done	= false;
 			$count	= 0;
-			do{	
+			do{
 				$url		= $rslb->get_url('templates');
 				$request	= wp_remote_post($url.'/'.$this->templates_list, array(
 					'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
@@ -149,7 +158,7 @@ class RevSliderTemplate {
 				}else{
 					$rslb->move_server_list();
 				}
-				
+
 				$count++;
 			}while($done == false && $count < 5);
 			
@@ -264,7 +273,7 @@ class RevSliderTemplate {
 	 */
 	private function _update_images(){
 		global $wp_version, $rslb;
-		
+
 		$templates	= get_option('rs-templates', array());
 		$chk		= $this->check_curl_connection();
 		$curl		= ($chk) ? new WP_Http_Curl() : false;

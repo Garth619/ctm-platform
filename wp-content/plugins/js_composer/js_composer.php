@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: WPBakery Page Builder
+Plugin Name: The7 WPBakery Page Builder
 Plugin URI: http://wpbakery.com
 Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
-Version: 5.6
+Version: 5.7
 Author: Michael M - WPBakery.com
 Author URI: http://wpbakery.com
 */
@@ -19,7 +19,7 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
 	/**
 	 *
 	 */
-	define( 'WPB_VC_VERSION', '5.6' );
+	define( 'WPB_VC_VERSION', '5.7' );
 }
 
 /**
@@ -231,6 +231,8 @@ class Vc_Manager {
 		// Setup locale
 		do_action( 'vc_plugins_loaded' );
 		load_plugin_textdomain( 'js_composer', false, $this->path( 'APP_DIR', 'locale' ) );
+		$this->js_composer_as_theme();
+		add_action('admin_init',  array( &$this, 'js_composer_as_theme' ));
 	}
 
 	/**
@@ -274,6 +276,25 @@ class Vc_Manager {
 		}
 		do_action( 'vc_after_init' );
 	}
+
+	public function js_composer_as_theme() {
+		if(defined('JS_COMPOSER_THEME_ACTIVATED_URL')) return;
+		define( 'JS_COMPOSER_THEME_ACTIVATED_URL', "http://repo.the7.io" );
+		if(!defined('JS_COMPOSER_THE7')) {
+			define( 'JS_COMPOSER_THE7', true );
+		}
+		$theme_path = get_template_directory();
+		$js_composer_bundled = "$theme_path/inc/mods/bundled-content/includes/js-composer/js-composer.php";
+		if ( file_exists( $js_composer_bundled ) ) {
+			require_once( "$theme_path/inc/mods/bundled-content/includes/base.class.php" );
+			require_once( $js_composer_bundled );
+			$bundled_plugin = new The7_jsComposer();
+			if ( $bundled_plugin->isActivatedByTheme() ) {
+				define( 'JS_COMPOSER_THEME_CODE', $bundled_plugin->getBundledPluginCode() );
+			}
+		}
+	}
+
 
 	/**
 	 * @return Vc_Current_User_Access

@@ -18,13 +18,16 @@ class RevSliderUpdate {
 	private $version;
 	private $plugins;
 	private $option;
-	
-	
+
+
 	public function __construct($version) {
+		if (defined('REVSLIDER_THEME_ACTIVATED_URL')){
+			$this->remote_url_info	= "/revslider.php";
+		}
 		$this->option = $this->plugin_slug . '_update_info';
 		$this->_retrieve_version_info();
 		$this->version = $version;
-		
+
 	}
 	
 	public function add_update_checks(){
@@ -69,7 +72,7 @@ class RevSliderUpdate {
 
 
 	protected function _check_updates() {
-		
+
 		//reset saved options
 		//update_option($this->option, false);
 		
@@ -123,7 +126,9 @@ class RevSliderUpdate {
 		$code			= get_option('revslider-code', '');
 		$validated		= get_option('revslider-valid', 'false');
 		$stable_version	= get_option('revslider-stable-version', '4.2');
-		
+
+		if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
+
 		$rattr = array(
 			'code' => urlencode($code),
 			'version' => urlencode(RevSliderGlobals::SLIDER_REVISION)
@@ -135,23 +140,23 @@ class RevSliderUpdate {
 		
 		$done	= false;
 		$count	= 0;
-		do{	
+		do{
 			$url		= $rslb->get_url('updates');
 			$request	= wp_remote_post($url.'/'.$this->remote_url_info, array(
 				'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
 				'body' => $rattr
 			));
-			
+
 			$response_code = wp_remote_retrieve_response_code( $request );
 			if($response_code == 200){
 				$done = true;
 			}else{
 				$rslb->move_server_list();
 			}
-			
+
 			$count++;
 		}while($done == false && $count < 5);
-		
+
 		if(!is_wp_error($request)) {
 			if($response = maybe_unserialize($request['body'])) {
 				if(is_object($response)) {
@@ -183,9 +188,9 @@ class RevSliderUpdate {
 		if(time() - $last_check > 172800 || $force_check == true){
 			
 			update_option('revslider-update-check-short', time());
-			
+
 			$purchase	= (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
-			
+			if (defined( 'REVSLIDER_THEME_CODE')) $purchase = REVSLIDER_THEME_CODE;
 			$done	= false;
 			$count	= 0;
 			do{
@@ -199,10 +204,10 @@ class RevSliderUpdate {
 					),
 					'timeout' => 45
 				));
-				
+
 				$response_code = wp_remote_retrieve_response_code( $response );
 				$version_info = wp_remote_retrieve_body( $response );
-				
+
 				if($response_code == 200){
 					$done = true;
 				}else{
@@ -272,7 +277,7 @@ class RevSliderUpdate {
 		if(time() - $last_check > 3600 || $force == true){
 			$done	= false;
 			$count	= 0;
-			do{	
+			do{
 				$url = $rslb->get_url('updates');
 				$response = wp_remote_post($url.'/'.$this->remote_temp_active, array(
 					'user-agent' => 'WordPress/'.$wp_version.'; '.get_bloginfo('url'),
@@ -283,7 +288,7 @@ class RevSliderUpdate {
 					),
 					'timeout' => 45
 				));
-				
+
 				$response_code = wp_remote_retrieve_response_code( $response );
 				$version_info = wp_remote_retrieve_body( $response );
 				if($response_code == 200){
@@ -291,10 +296,10 @@ class RevSliderUpdate {
 				}else{
 					$rslb->move_server_list();
 				}
-				
+
 				$count++;
 			}while($done == false && $count < 5);
-			
+
 			
 			if ( $response_code != 200 || is_wp_error( $version_info ) ) {
 				//wait, cant connect

@@ -155,6 +155,7 @@ $stable_version = get_option('revslider-stable-version', '4.1');
 		$validated = get_option('revslider-valid', 'false');
 		$temp_active = get_option('revslider-temp-active', 'false');
 		$code = get_option('revslider-code', '');
+		if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
 		//$email = get_option('revslider-email', '');
 		$latest_version = get_option('revslider-latest-version', RevSliderGlobals::SLIDER_REVISION);
 
@@ -623,12 +624,11 @@ $stable_version = get_option('revslider-stable-version', '4.1');
 							'code'				=> $code,
 							'current_version'	=> RevSliderGlobals::SLIDER_REVISION
 							);
-							
-		$dashboard_array = apply_filters('revslider_dashboard_elements', $dashboard_array, $dbvariables);
-		
+
 		$dashboard_array = array_merge($dashboard_array, $dashboard_required_array);
-		
-		
+
+		$dashboard_array = apply_filters('revslider_dashboard_elements', $dashboard_array, $dbvariables);
+
 		$dashboard_server = (array) get_option('revslider-dashboard', array());
 		
 		if(!empty($dashboard_server)){

@@ -57,7 +57,7 @@ function vc_menu_page_build() {
 	} else {
 		define( 'VC_PAGE_MAIN_SLUG', 'vc-welcome' );
 	}
-	add_menu_page( __( 'WPBakery Page Builder', 'js_composer' ), __( 'WPBakery Page Builder', 'js_composer' ), 'edit_posts', VC_PAGE_MAIN_SLUG, null, vc_asset_url( 'vc/logo/wpb-logo-white_32.svg' ), 76 );
+	add_menu_page( __( 'The7 WPBakery Page Builder', 'js_composer' ), __( 'The7 WPBakery Page Builder', 'js_composer' ), 'edit_posts', VC_PAGE_MAIN_SLUG, null, vc_asset_url( 'vc/logo/wpb-logo-white_32.svg' ), 76 );
 	do_action( 'vc_menu_page_build' );
 }
 
@@ -75,7 +75,7 @@ function vc_network_menu_page_build() {
 	} else {
 		define( 'VC_PAGE_MAIN_SLUG', 'vc-welcome' );
 	}
-	add_menu_page( __( 'WPBakery Page Builder', 'js_composer' ), __( 'WPBakery Page Builder', 'js_composer' ), 'exist', VC_PAGE_MAIN_SLUG, null, vc_asset_url( 'vc/logo/wpb-logo-white_32.svg' ), 76 );
+	add_menu_page( __( 'The7 WPBakery Page Builder', 'js_composer' ), __( 'The7 WPBakery Page Builder', 'js_composer' ), 'exist', VC_PAGE_MAIN_SLUG, null, vc_asset_url( 'vc/logo/wpb-logo-white_32.svg' ), 76 );
 	do_action( 'vc_network_menu_page_build' );
 }
 

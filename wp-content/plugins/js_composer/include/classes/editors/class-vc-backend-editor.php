@@ -193,7 +193,10 @@ class Vc_Backend_Editor implements Vc_Editor_Interface {
 			'backbone',
 			'underscore',
 		), WPB_VC_VERSION, true );
-		wp_register_script( 'vc-backend-min-js', vc_asset_url( 'js/dist/backend.min.js' ), array( 'vc-backend-actions-js' ), WPB_VC_VERSION, true );
+		if (defined('JS_COMPOSER_THEME_ACTIVATED_URL'))
+			wp_register_script( 'vc-backend-min-js', vc_asset_url( 'js/dist/compat/backend.min.js' ), array( 'vc-backend-actions-js' ), WPB_VC_VERSION, true );
+		else
+			wp_register_script( 'vc-backend-min-js', vc_asset_url( 'js/dist/backend.min.js' ), array( 'vc-backend-actions-js' ), WPB_VC_VERSION, true );
 		// used in tta shortcodes, and panels.
 		wp_register_script( 'vc_accordion_script', vc_asset_url( 'lib/vc_accordion/vc-accordion.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
 		wp_register_script( 'wpb_php_js', vc_asset_url( 'lib/php.default/php.default.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
