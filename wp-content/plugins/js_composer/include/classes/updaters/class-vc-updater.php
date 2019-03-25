@@ -29,7 +29,7 @@ class Vc_Updater {
 	/**
 	 * @var string
 	 */
-	public $title = 'The7 WPBakery Page Builder';
+	public $title = 'WPBakery Page Builder';
 
 	/**
 	 * @var bool
@@ -77,15 +77,6 @@ class Vc_Updater {
 	 * @return array|boolean JSON response or false if request failed
 	 */
 	public function getDownloadUrl( $license_key = '' ) {
-		if ( defined( 'JS_COMPOSER_THEME_ACTIVATED_URL' ) && class_exists( 'The7_Remote_API' ) && function_exists( 'presscore_get_purchase_code' ) ) {
-			$the7_remote_api = new The7_Remote_API( presscore_get_purchase_code() );
-
-			return array(
-				'status' => 200,
-				'url'    => $the7_remote_api->get_plugin_download_url( 'js_composer' ),
-			);
-		}
-
 		$url = $this->getUrl();
 		// FIX SSL SNI
 		$filter_add = true;

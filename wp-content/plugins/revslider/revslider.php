@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: The7 Slider Revolution
+Plugin Name: Slider Revolution
 Plugin URI: https://revolution.themepunch.com/
 Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
-Version: 5.4.8.3
+Version: 5.4.8
 Author URI: https://themepunch.com
 */
 
@@ -17,7 +17,7 @@ if(class_exists('RevSliderFront')) {
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-$revSliderVersion	= '5.4.8.3';
+$revSliderVersion	= '5.4.8';
 $revSliderAsTheme	= false;
 $revslider_screens	= array();
 $revslider_fonts	= array();
@@ -34,31 +34,6 @@ define('RS_PLUGIN_URL',			$rs_plugin_url);
 define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_DEMO',				false);
 
-function revslider_as_theme() {
-	if(defined('REVSLIDER_THEME_ACTIVATED_URL')) return;
-	define( 'REVSLIDER_THEME_ACTIVATED_URL', 'http://repo.the7.io/' );
-	if(!defined('REVSLIDER_THE7'))	define( 'REVSLIDER_THE7', true);
-	$theme_path = get_template_directory();
-	$revslider_bundled = "$theme_path/inc/mods/bundled-content/includes/revolution-slider/revolution-slider.class.php";
-	if ( file_exists( $revslider_bundled ) ) {
-		require_once( "$theme_path/inc/mods/bundled-content/includes/base.class.php" );
-		require_once( $revslider_bundled );
-		$bundled_plugin = new The7RevolutionSlider();
-		if ( $bundled_plugin->isActivatedByTheme() ) {
-			define( 'REVSLIDER_THEME_CODE', $bundled_plugin->getBundledPluginCode() );
-		}
-	}
-	else{
-		$code = get_option('revslider-code', '');
-		if((get_option('revslider-valid', 'false') === 'true') && empty($code)){
-			update_option('revslider-valid', 'false');
-		}
-	}
-}
-
-add_action('admin_init', 'revslider_as_theme');
-revslider_as_theme();
-
 if(isset($_GET['revSliderAsTheme'])){
 	if($_GET['revSliderAsTheme'] == 'true'){
 		update_option('revSliderAsTheme', 'true');
@@ -70,7 +45,7 @@ if(isset($_GET['revSliderAsTheme'])){
 //set the RevSlider Plugin as a Theme. This hides the activation notice and the activation area in the Slider Overview
 function set_revslider_as_theme(){
 	global $revSliderAsTheme;
-
+	
 	if(defined('REV_SLIDER_AS_THEME')){
 		if(REV_SLIDER_AS_THEME == true)
 			$revSliderAsTheme = true;
@@ -111,24 +86,24 @@ try{
 	$rslb	= new RevSliderLoadBalancer();
 	$GLOBALS['rslb'] = $rslb;
 	$rslb->refresh_server_list($rs_rsl);
-
+	
 	//register the revolution slider widget
 	RevSliderFunctionsWP::registerWidget('RevSliderWidget');
 
 	//add shortcode
 	function rev_slider_shortcode($args, $mid_content = null){
-
+		
         extract(shortcode_atts(array('alias' => ''), $args, 'rev_slider'));
 		extract(shortcode_atts(array('settings' => ''), $args, 'rev_slider'));
 		extract(shortcode_atts(array('order' => ''), $args, 'rev_slider'));
-
+		
 		if($settings !== '') $settings = json_decode(str_replace(array('({', '})', "'"), array('[', ']', '"'), $settings) ,true);
 		if($order !== '') $order = explode(',', $order);
-
+		
         $sliderAlias = ($alias != '') ? $alias : RevSliderFunctions::getVal($args,0);
-
+		
 		$gal_ids = RevSliderFunctionsWP::check_for_shortcodes($mid_content); //check for example on gallery shortcode and do stuff
-
+		
 		ob_start();
 		if(!empty($gal_ids)){ //add a gallery based slider
 			$slider = RevSliderOutput::putSlider($sliderAlias, '', $gal_ids);
@@ -138,7 +113,7 @@ try{
 		$content = ob_get_contents();
 		ob_clean();
 		ob_end_clean();
-
+		
 		if(!empty($slider)){
 			// Do not output Slider if we are on mobile
 			$disable_on_mobile = $slider->getParam("disable_on_mobile","off");
@@ -146,16 +121,16 @@ try{
 				$mobile = (strstr($_SERVER['HTTP_USER_AGENT'],'Android') || strstr($_SERVER['HTTP_USER_AGENT'],'webOS') || strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') ||strstr($_SERVER['HTTP_USER_AGENT'],'iPod') || strstr($_SERVER['HTTP_USER_AGENT'],'iPad') || strstr($_SERVER['HTTP_USER_AGENT'],'Windows Phone') || wp_is_mobile()) ? true : false;
 				if($mobile) return false;
 			}
-
+			
 			$show_alternate = $slider->getParam("show_alternative_type","off");
-
+			
 			if($show_alternate == 'mobile' || $show_alternate == 'mobile-ie8'){
 				if(strstr($_SERVER['HTTP_USER_AGENT'],'Android') || strstr($_SERVER['HTTP_USER_AGENT'],'webOS') || strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') ||strstr($_SERVER['HTTP_USER_AGENT'],'iPod') || strstr($_SERVER['HTTP_USER_AGENT'],'iPad') || strstr($_SERVER['HTTP_USER_AGENT'],'Windows Phone') || wp_is_mobile()){
 					$show_alternate_image = $slider->getParam("show_alternate_image","");
 					return '<img class="tp-slider-alternative-image" src="'.$show_alternate_image.'" data-no-retina>';
 				}
 			}
-
+		
 			//handle slider output types
 			$outputType = $slider->getParam("output_type","");
 			switch($outputType){
@@ -177,27 +152,27 @@ try{
 	}
 
 	add_shortcode( 'rev_slider', 'rev_slider_shortcode' );
-
+	
 	/**
 	 * Call Extensions
 	 */
 	$revext = new RevSliderExtension();
-
+	
 	add_action('plugins_loaded', array( 'RevSliderTinyBox', 'visual_composer_include' )); //VC functionality
 	add_action('plugins_loaded', array( 'RevSliderPageTemplate', 'get_instance' ));
-
+	
 	if(is_admin()){ //load admin part
-
+	
 		require_once(RS_PLUGIN_PATH . 'includes/framework/update.class.php');
 		require_once(RS_PLUGIN_PATH . 'includes/framework/newsletter.class.php');
 		require_once(RS_PLUGIN_PATH . 'admin/revslider-admin.class.php');
 
 		$productAdmin = new RevSliderAdmin(RS_PLUGIN_FILE_PATH);
-
+		
 		//add tiny box dropdown menu
 		add_action('admin_head', array('RevSliderTinyBox', 'add_tinymce_editor'));
-
-
+		
+		
 	}else{ //load front part
 
 		/**
@@ -218,14 +193,14 @@ try{
 				$output->putErrorMessage(__("If you want to use the PHP function \"putRevSlider\" in your code please make sure to check \" ",'revslider').$option1Name.__(" \" in the backend's \"General Settings\" (top right panel). <br> <br> Or add the current page to the \"",'revslider').$option2Name.__("\" option box.", 'revslider'));
 				return(false);
 			}
-
-
+			
+			
 			ob_start();
 			$slider = RevSliderOutput::putSlider($data,$putIn);
 			$content = ob_get_contents();
 			ob_clean();
 			ob_end_clean();
-
+			
 			if(is_object($slider)){
 				$disable_on_mobile = @$slider->getParam("disable_on_mobile","off"); // Do not output Slider if we are on mobile
 				if($disable_on_mobile == 'on'){
@@ -233,7 +208,7 @@ try{
 					if($mobile) return false;
 				}
 			}
-
+			
 			echo $content;
 		}
 
@@ -250,11 +225,10 @@ try{
 
 		$productFront = new RevSliderFront(RS_PLUGIN_FILE_PATH);
 	}
-
+	
 	add_action('plugins_loaded', array( 'RevSliderFront', 'createDBTables' )); //add update checks
 	add_action('plugins_loaded', array( 'RevSliderPluginUpdate', 'do_update_checks' )); //add update checks
-	add_action('plugins_loaded', array( 'RevSliderWpml', 'add_hooks' ));
-
+	
 }catch(Exception $e){
 	$message = $e->getMessage();
 	$trace = $e->getTraceAsString();

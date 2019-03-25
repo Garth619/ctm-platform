@@ -43,22 +43,6 @@ class RevSliderLoadBalancer {
 		}
 		
 		$url .= $use_url;
-
-		if (defined('REVSLIDER_THEME_ACTIVATED_URL')){
-			switch($purpose){
-				case 'updates':
-					$url = REVSLIDER_THEME_ACTIVATED_URL . 'bundled-content/revslider';
-					break;
-				case 'templates':
-					$url = REVSLIDER_THEME_ACTIVATED_URL . 'bundled-content/revslider/templates';
-					break;
-				case 'library':
-					$url =	REVSLIDER_THEME_ACTIVATED_URL . 'bundled-content/revslider/library';
-					break;
-				default:
-					return false;
-			}
-		}
 		
 		return $url;
 	}

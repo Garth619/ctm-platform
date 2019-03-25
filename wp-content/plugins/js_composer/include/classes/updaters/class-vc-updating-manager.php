@@ -141,17 +141,6 @@ class Vc_Updating_Manager {
 	 * @return string $remote_version
 	 */
 	public function getRemote_version() {
-		if ( defined( 'JS_COMPOSER_THEME_ACTIVATED_URL' ) && class_exists( 'Presscore_Modules_TGMPAModule' ) ) {
-
-			foreach ( Presscore_Modules_TGMPAModule::get_plugins_list_cache() as $plugin ) {
-				if ( $plugin['slug'] === $this->slug ) {
-					return $plugin['version'];
-				}
-			}
-
-			return false;
-		}
-
 		// FIX SSL SNI
 		$filter_add = true;
 		if ( function_exists( 'curl_version' ) ) {

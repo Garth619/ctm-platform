@@ -66,7 +66,7 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 		
 		self::setMenuRole($role);
 
-		self::addMenuPage('The7 Slider Revolution', "adminPages");
+		self::addMenuPage('Slider Revolution', "adminPages");
 		
 		self::addSubMenuPage(__('Navigation Editor', 'revslider'), 'display_plugin_submenu_page_navigation', 'revslider_navigation');
 		self::addSubMenuPage(__('Global Settings', 'revslider'), 'display_plugin_submenu_page_global_settings', 'revslider_global_settings');
@@ -135,27 +135,19 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 		}
 		
 		// Add-on Admin
-        if (!defined( 'REVSLIDER_THE7')) {
-            $addon_admin = new Rev_addon_Admin( 'rev_addon', RevSliderGlobals::SLIDER_REVISION );
-            add_action( 'admin_enqueue_scripts', array( $addon_admin, 'enqueue_styles' ) );
-            add_action( 'admin_enqueue_scripts', array( $addon_admin, 'enqueue_scripts' ) );
-            add_action( 'admin_menu', array( $addon_admin, 'add_plugin_admin_menu' ), 11 );
-                // Add-on Admin Button Ajax Actions
-            add_action( 'wp_ajax_activate_plugin', array( $addon_admin, 'activate_plugin' ) );
-                //add_action( 'wp_ajax_nopriv_activate_plugin', array( $addon_admin, 'activate_plugin') );
-            add_action( 'wp_ajax_deactivate_plugin', array( $addon_admin, 'deactivate_plugin' ) );
-                //add_action( 'wp_ajax_nopriv_deactivate_plugin', array( $addon_admin, 'deactivate_plugin') );
-            add_action( 'wp_ajax_install_plugin', array( $addon_admin, 'install_plugin' ) );
-                //add_action( 'wp_ajax_nopriv_install_plugin', array( $addon_admin, 'install_plugin') );
-
-                //add_filter('plugin_action_links', array('RevSliderAdmin', 'plugin_action_links' ), 10, 2);
-        }
-
-
-		// Gutenberg
-		add_action( 'enqueue_block_editor_assets', array($this,'enqueue_block_editor_assets') );
-		add_action( 'enqueue_block_assets', array($this,'enqueue_assets') );
-		add_filter( 'block_categories', array($this,'create_block_category'),10,2);
+		$addon_admin = new Rev_addon_Admin( 'rev_addon', RevSliderGlobals::SLIDER_REVISION );
+		add_action( 'admin_enqueue_scripts', array( $addon_admin, 'enqueue_styles') );
+		add_action( 'admin_enqueue_scripts', array( $addon_admin, 'enqueue_scripts') );
+		add_action( 'admin_menu', array( $addon_admin, 'add_plugin_admin_menu'), 11 );
+		// Add-on Admin Button Ajax Actions
+		add_action( 'wp_ajax_activate_plugin', array( $addon_admin, 'activate_plugin') );
+		//add_action( 'wp_ajax_nopriv_activate_plugin', array( $addon_admin, 'activate_plugin') );
+		add_action( 'wp_ajax_deactivate_plugin', array( $addon_admin, 'deactivate_plugin'));
+		//add_action( 'wp_ajax_nopriv_deactivate_plugin', array( $addon_admin, 'deactivate_plugin') );
+		add_action( 'wp_ajax_install_plugin', array( $addon_admin, 'install_plugin'));
+		//add_action( 'wp_ajax_nopriv_install_plugin', array( $addon_admin, 'install_plugin') );
+		
+		//add_filter('plugin_action_links', array('RevSliderAdmin', 'plugin_action_links' ), 10, 2);
 
 		// Privacy
 		add_action( 'admin_init', array( $this, 'add_suggested_privacy_content'), 15 );
@@ -2207,72 +2199,6 @@ class RevSliderAdmin extends RevSliderBaseAdmin{
 		}
 		exit();
 	}
-
 	
-	/**
-	 * Enqueue Gutenberg editor blocks styles and scripts
-	 */
-	public function enqueue_block_editor_assets() {
-		$block_path = '/includes/gutenberg-blocks/assets/js/editor.blocks.js';
-		$style_path = '/includes/gutenberg-blocks/assets/css/blocks.style.css';
-		// Enqueue the bundled block JS file
-		wp_enqueue_script(
-			'revslider-blocks-js',
-			RS_PLUGIN_URL . $block_path,
-			array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components' ),
-			filemtime( RS_PLUGIN_PATH . $block_path )
-		);
-	
-		// Enqueue optional editor only styles
-		wp_enqueue_style(
-			'revslider-blocks-editor-css',
-			RS_PLUGIN_URL . $style_path,
-			'',
-			filemtime( RS_PLUGIN_PATH . $style_path )
-		);
-	}
-
-	/**
-	 * Enqueue Gutenberg editor blocks assets
-	 */
-	public function enqueue_assets() {
-		$style_path = '/includes/gutenberg-blocks/assets/css/blocks.style.css';
-		wp_enqueue_style(
-			'revslider-blocks',
-			RS_PLUGIN_URL . $style_path,
-			'',
-			filemtime( RS_PLUGIN_PATH . $style_path )
-		);
-	}
-
-	/**
-	 * Add ThemePunch Gutenberg Block Category
-	 */
-	public function create_block_category( $categories, $post ) {
-		if($this->in_array_r('themepunch',$categories)) return $categories;
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug' => 'themepunch',
-					'title' => __( 'ThemePunch', 'revslider' ),
-				),
-			)
-		);
-	}
-
-	/**
-	 * Check Array for Value
-	 */
-	public function in_array_r($needle, $haystack, $strict = false) {
-		foreach ($haystack as $item) {
-			if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && $this->in_array_r($needle, $item, $strict))) {
-				return true;
-			}
-		}
-	
-		return false;
-	}
-
 }
 ?>

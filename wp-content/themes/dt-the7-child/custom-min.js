@@ -1,0 +1,1 @@
+jQuery(document).ready(function(e){e("a.header-elements-button-1").removeAttr("href"),e(".vc_custom_1553121858616, a.header-elements-button-1").on("click",function(o){e(".mygform_overlay").fadeIn(300),e(".mygform_overlay").addClass("open")}),e(".mygform_close").on("click",function(o){e(".mygform_overlay").fadeOut(300),e(".mygform_overlay").removeClass("open")})});

@@ -321,7 +321,7 @@ class Vc_License {
 		} else {
 			$value = vc_settings()->get( self::$license_key_option );
 		}
-		if (defined( 'JS_COMPOSER_THEME_CODE')) $value = JS_COMPOSER_THEME_CODE;
+
 		return $value;
 	}
 

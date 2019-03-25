@@ -20,12 +20,6 @@ class Vc_Shared_Templates {
 	 */
 	protected $download_link_url = 'http://support.wpbakery.com/templates/download-link';
 
-	public function __construct() {
-		if (defined('JS_COMPOSER_THEME_ACTIVATED_URL')) {
-			$this->download_link_url = JS_COMPOSER_THEME_ACTIVATED_URL . '/bundled-content/js-composer/templates/prepare_download.php';
-		}
-	}
-
 	/**
 	 *
 	 */

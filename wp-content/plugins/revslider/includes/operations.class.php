@@ -241,8 +241,8 @@ class RevSliderOperations extends RevSliderElementsBase{
 			"blurlightcross"=>"Blur Light Cross Transition",
 			"blurstrong"=>"Blur Strong Transition",
 			"blurstrongcross"=>"Blur Strong Cross Transition",
-
-
+			
+			
 			"notselectable7"=>"PREMIUM TRANSITIONS",
 			"3dcurtain-horizontal"=>"3D Curtain Horizontal",
 			"3dcurtain-vertical"=>"3D Curtain Vertical",
@@ -1326,7 +1326,7 @@ class RevSliderOperations extends RevSliderElementsBase{
 				if(empty(self::$css)){
 					self::fillCSS();
 				}
-
+				
 				$styles = self::$css;
 				$styles = RevSliderCssParser::parseDbArrayToCss($styles, "\n");
 				$styles = RevSliderCssParser::compress_css($styles);
@@ -1334,10 +1334,10 @@ class RevSliderOperations extends RevSliderElementsBase{
 				echo '<style type="text/css">'.$styles.'</style>'; //.$stylesinnerlayers
 
 				$http = (is_ssl()) ? 'https' : 'http';
-
+				
 				$operations = new RevSliderOperations();
 				$arrValues = $operations->getGeneralSettingsValues();
-
+				
 				$set_diff_font = RevSliderFunctions::getVal($arrValues, "change_font_loading",'');
 				if($set_diff_font !== ''){
 					$font_url = $set_diff_font;
@@ -1347,12 +1347,12 @@ class RevSliderOperations extends RevSliderElementsBase{
 
 				$custom_css = RevSliderOperations::getStaticCss();
 				echo '<style type="text/css">'.RevSliderCssParser::compress_css($custom_css).'</style>';
-
+				
 				$gfonts = '';
 				$googleFont = $slider->getParam("google_font");
 				if(is_array($googleFont)){
 					foreach($googleFont as $key => $font){
-
+						
 					}
 				}else{
 					RevSliderOperations::setCleanFontImport($googleFont);
@@ -1361,7 +1361,7 @@ class RevSliderOperations extends RevSliderElementsBase{
 				//add all google fonts of layers
 				$gfsubsets = $slider->getParam("subsets",array());
 				$gf = $slider->getUsedFonts(false);
-
+				
 				foreach($gf as $gfk => $gfv){
 					$variants = array();
 					if(!empty($gfv['variants'])){
@@ -1369,7 +1369,7 @@ class RevSliderOperations extends RevSliderElementsBase{
 							$variants[] = $mgvk;
 						}
 					}
-
+					
 					$subsets = array();
 					if(!empty($gfv['subsets'])){
 						foreach($gfv['subsets'] as $ssk => $ssv){
@@ -1381,7 +1381,7 @@ class RevSliderOperations extends RevSliderElementsBase{
 					RevSliderOperations::setCleanFontImport($gfk, '', '', $variants, $subsets);
 					//$gfonts .= RevSliderOperations::getCleanFontImport($gfk, '', '', $variants, $subsets);
 				}
-
+				
 				echo RevSliderOperations::printCleanFontImport();
 				//echo $gfonts;
 				?>
@@ -1972,10 +1972,6 @@ ob_end_clean();
 		header("Content-Disposition: attachment; filename=".sanitize_title($slider->getAlias()).".zip");
 		header("Pragma: no-cache");
 		header("Expires: 0");
-		
-		ob_clean();
-		flush();
-		
 		readfile(RevSliderGlobals::$uploadsUrlExportZip);
 		
 		@unlink(RevSliderGlobals::$uploadsUrlExportZip); //delete file after sending it to user
@@ -2854,16 +2850,14 @@ ob_end_clean();
 												}
 											break;
 											case 'youtube':
-												if(!empty($layer['video_data']->id)) {
-													$infos['id'] = 'external';
-													$used_videos[$do_ssl.'//www.youtube.com/watch?v='.$layer['video_data']->id] = $infos;
-												}
+												$infos['id'] = 'external';
+												if(!isset($layer['video_data']->id) || empty($layer['video_data']->id)) continue;
+												$used_videos[$do_ssl.'//www.youtube.com/watch?v='.$layer['video_data']->id] = $infos;
 											break;
 											case 'vimeo':
-												if(!empty($layer['video_data']->id)) {
-													$infos['id'] = 'external';
-													$used_videos[$do_ssl.'//vimeo.com/'.$layer['video_data']->id] = $infos;
-												}
+												if(!isset($layer['video_data']->id) || empty($layer['video_data']->id)) continue;
+												$infos['id'] = 'external';
+												$used_videos[$do_ssl.'//vimeo.com/'.$layer['video_data']->id] = $infos;
 											break;
 										}
 										

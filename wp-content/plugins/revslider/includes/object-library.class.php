@@ -19,8 +19,8 @@ class RevSliderObjectLibrary {
 	private $curl_check	= null;
 	
 	const LIBRARY_VERSION		= '1.0.0';
-
-
+	
+	
 	/**
 	 * get list of objects
 	 * @since: 5.3.0
@@ -47,8 +47,7 @@ class RevSliderObjectLibrary {
 			if($validated == 'false'){
 				$code = '';
 			}
-			if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
-
+			
 			$rattr = array(
 				'code' => urlencode($code),
 				'library_version' => urlencode($library_version),
@@ -218,7 +217,7 @@ class RevSliderObjectLibrary {
 						$error = __('Plugin not activated', 'revslider');
 					}else{
 						$code = ($validated == 'false') ? '' : get_option('revslider-code', '');
-						if (defined( 'REVSLIDER_THEME_CODE')) $code = REVSLIDER_THEME_CODE;
+						
 						$done	= false;
 						$count	= 0;
 						do{	
